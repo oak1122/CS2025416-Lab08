@@ -1,12 +1,14 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { getApiUrl } from "../config";
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
 
   const fetchUsers = () => {
-    fetch('http://localhost:3001/employee/')
+    const apiUrl = getApiUrl();
+    fetch(`${apiUrl}/employee/`)
       .then(res => res.json())
       .then(result => {
         setUsers(result);
@@ -20,7 +22,8 @@ export default function UsersPage() {
 
   const handleDelete = (id) => {
     if (confirm(`คุณต้องการลบผู้ใช้งาน ID: ${id} ใช่หรือไม่?`)) {
-      fetch('http://localhost:3001/employee/delete/' + id, {
+      const apiUrl = getApiUrl();
+      fetch(`${apiUrl}/employee/delete/` + id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

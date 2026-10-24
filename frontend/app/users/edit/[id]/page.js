@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useState } from "react";
+import { getApiUrl } from "../../../config";
 
 export default function Page({ params }) {
   const { id } = React.use(params);
@@ -11,7 +12,8 @@ export default function Page({ params }) {
   });
 
   useEffect(() => {
-    fetch('http://localhost:3001/employee/' + id)
+    const apiUrl = getApiUrl();
+    fetch(`${apiUrl}/employee/` + id)
       .then(res => res.json())
       .then(result => {
         if (Array.isArray(result) && result.length > 0) {
@@ -25,7 +27,8 @@ export default function Page({ params }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://localhost:3001/employee/edit/' + id, {
+    const apiUrl = getApiUrl();
+    fetch(`${apiUrl}/employee/edit/` + id, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",

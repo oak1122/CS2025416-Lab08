@@ -1,5 +1,6 @@
 'use client'
 import React from "react";
+import { getApiUrl } from "../../config";
 
 export default function CreateUserPage() {
   const handleSubmit = (event) => {
@@ -11,7 +12,8 @@ export default function CreateUserPage() {
       email: event.target.email.value
     };
 
-    fetch('http://localhost:3001/employee/create', {
+    const apiUrl = getApiUrl();
+    fetch(`${apiUrl}/employee/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
